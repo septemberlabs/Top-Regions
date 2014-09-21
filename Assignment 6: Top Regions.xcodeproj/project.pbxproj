@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A129D4719C8D74000367A02 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A129D4519C8D74000367A02 /* Model.xcdatamodeld */; };
 		1A611D7F19C3865B007EF304 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A611D7E19C3865B007EF304 /* Foundation.framework */; };
 		1A611D8119C3865B007EF304 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A611D8019C3865B007EF304 /* CoreGraphics.framework */; };
 		1A611D8319C3865B007EF304 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A611D8219C3865B007EF304 /* UIKit.framework */; };
@@ -24,7 +25,6 @@
 		1A611DAD19C3865C007EF304 /* Assignment_6__Top_RegionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A611DAC19C3865C007EF304 /* Assignment_6__Top_RegionsTests.m */; };
 		1A759EED19C7CF7400378B5A /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A759EEC19C7CF7400378B5A /* CoreDataTableViewController.m */; };
 		1A759EF519C7D05F00378B5A /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A759EF419C7D05F00378B5A /* FlickrFetcher.m */; };
-		1A759EF919C7D0C800378B5A /* FlickrTopPlacesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A759EF819C7D0C800378B5A /* FlickrTopPlacesTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A129D4619C8D74000367A02 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1A611D7B19C3865B007EF304 /* Assignment 6: Top Regions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment 6: Top Regions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A611D7E19C3865B007EF304 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1A611D8019C3865B007EF304 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,8 +64,6 @@
 		1A759EF219C7D05F00378B5A /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		1A759EF319C7D05F00378B5A /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		1A759EF419C7D05F00378B5A /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
-		1A759EF719C7D0C800378B5A /* FlickrTopPlacesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrTopPlacesTVC.h; sourceTree = "<group>"; };
-		1A759EF819C7D0C800378B5A /* FlickrTopPlacesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrTopPlacesTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +93,7 @@
 		1A611D7219C3865B007EF304 = {
 			isa = PBXGroup;
 			children = (
+				1A129D4519C8D74000367A02 /* Model.xcdatamodeld */,
 				1A611D8419C3865B007EF304 /* Assignment 6: Top Regions */,
 				1A611DA619C3865C007EF304 /* Assignment 6: Top RegionsTests */,
 				1A611D7D19C3865B007EF304 /* Frameworks */,
@@ -128,8 +128,6 @@
 				1A611D8E19C3865C007EF304 /* AppDelegate.m */,
 				1A611D9019C3865C007EF304 /* Main_iPhone.storyboard */,
 				1A611D9319C3865C007EF304 /* Main_iPad.storyboard */,
-				1A759EF719C7D0C800378B5A /* FlickrTopPlacesTVC.h */,
-				1A759EF819C7D0C800378B5A /* FlickrTopPlacesTVC.m */,
 				1A611D9619C3865C007EF304 /* ViewController.h */,
 				1A611D9719C3865C007EF304 /* ViewController.m */,
 				1A759EEB19C7CF7400378B5A /* CoreDataTableViewController.h */,
@@ -282,8 +280,8 @@
 				1A611D8F19C3865C007EF304 /* AppDelegate.m in Sources */,
 				1A759EED19C7CF7400378B5A /* CoreDataTableViewController.m in Sources */,
 				1A759EF519C7D05F00378B5A /* FlickrFetcher.m in Sources */,
-				1A759EF919C7D0C800378B5A /* FlickrTopPlacesTVC.m in Sources */,
 				1A611D8B19C3865B007EF304 /* main.m in Sources */,
+				1A129D4719C8D74000367A02 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +508,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A129D4519C8D74000367A02 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1A129D4619C8D74000367A02 /* Model.xcdatamodel */,
+			);
+			currentVersion = 1A129D4619C8D74000367A02 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1A611D7319C3865B007EF304 /* Project object */;
 }

@@ -18,7 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchPlaces];
+    [self grabData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -29,12 +29,73 @@
 
 #pragma mark - Get data
 
+- (void)grabData {
+    
+    // get list of 250 recently georeferenced photos
+    // loop through the photos, using the place_id to get the region info for each. also add each photo to the database.
+    // there's a dictionary of regions. each entry is an array of photographers (text).
+    // if the region exists in the dictionary, check if the photographer exists in the array. if so, don't add to the array. if not, add to the array.
+    // if the region doesn't exist in the dictionary, add it, which a single-item array containing that photographer
+    // now we have a dictionary with all the regions and quantity and names of photographers
+    
+    NSData *jsonData = [NSData dataWithContentsOfURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+    NSError *error = nil;
+    NSDictionary *fetcherResults = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                   options:0
+                                                                     error:&error];
+    NSArray *photos = [fetcherResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+    //NSLog(@"results: %@", fetcherResults);
+    //NSLog(@"photos: %@", photos);
+    
+    NSMutableDictionary *regions = [[NSMutableDictionary alloc] init];
+    
+    for (NSDictionary *photoInfo in photos) {
+        
+        // get necessary items about the photo
+        NSString *place_id = [photoInfo objectForKey:@"place_id"];
+        NSString *photographer_id = [photoInfo objectForKey:@"owner"];
+
+        // get the region info about the photo
+        NSData *jsonData = [NSData dataWithContentsOfURL:[FlickrFetcher URLforInformationAboutPlace:place_id]];
+        NSError *error = nil;
+        NSDictionary *placeInfo = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:0
+                                                                         error:&error];
+        NSDictionary *regionInfo = [placeInfo valueForKeyPath:@"place.region"];
+        NSString *region_place_id = [regionInfo objectForKey:@"place_id"];
+
+        /*
+        NSLog(@"results: %@", placeInfo);
+        NSLog(@"place_id: %@", place_id);
+        NSLog(@"region: %@", regionInfo);
+         */
+        
+        if ([regions objectForKey:region_place_id] != nil) {
+            // a photographer in the region has already been counted. see if the current photog is him. if not, add the current photog.
+            NSMutableArray *photographers = [regions objectForKey:region_place_id];
+            if (![photographers containsObject:photographer_id]) {
+                [photographers addObject:photographer_id];
+            }
+        }
+        else {
+            // a photographer in the region has not been counted. initialize the photographer array with this photog.
+            NSMutableArray *photographers = [[NSMutableArray alloc] init];
+            [photographers addObject:photographer_id];
+            [regions setValue:photographers forKey:region_place_id];
+        }
+        NSLog(@"here");
+
+    }
+    
+}
+
 - (IBAction)fetchPlaces {
     
+    /*
     dispatch_queue_t flickrFetchQueue;
     flickrFetchQueue = dispatch_queue_create("flickr fetch queue", NULL);
     //dispatch_async(flickrFetchQueue, ^{
-    NSData *jsonData = [NSData dataWithContentsOfURL:[FlickrFetcher URLforTopPlaces]];
+    NSData *jsonData = [NSData dataWithContentsOfURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
     NSError *error = nil;
     NSDictionary *fetcherResults = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                    options:0
@@ -43,6 +104,8 @@
     
     //NSArray *places = [fetcherResults valueForKeyPath:FLICKR_RESULTS_PLACES];
     //NSLog(@"places: %@", places);
+     
+     */
     
     /*
     for (NSDictionary *placeInfo in places) {
