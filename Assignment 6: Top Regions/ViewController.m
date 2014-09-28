@@ -64,11 +64,9 @@
         NSDictionary *regionInfo = [placeInfo valueForKeyPath:@"place.region"];
         NSString *region_place_id = [regionInfo objectForKey:@"place_id"];
 
-        /*
         NSLog(@"results: %@", placeInfo);
         NSLog(@"place_id: %@", place_id);
         NSLog(@"region: %@", regionInfo);
-         */
         
         if ([regions objectForKey:region_place_id] != nil) {
             // a photographer in the region has already been counted. see if the current photog is him. if not, add the current photog.

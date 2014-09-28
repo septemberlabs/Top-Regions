@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Photo" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Photo" representedClassName="Photo" syncable="YES">
+        <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="region" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="photos" inverseEntity="Region" syncable="YES"/>
+        <relationship name="region" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="photos" inverseEntity="Region" syncable="YES"/>
     </entity>
-    <entity name="Region" syncable="YES">
-        <attribute name="numberOfPhotographers" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="region_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="region_name" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfPhotographers" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="region" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-18" positionY="189" width="128" height="88"/>
-        <element name="Region" positionX="196" positionY="189" width="128" height="103"/>
+        <element name="Photo" positionX="-326" positionY="198" width="128" height="88"/>
+        <element name="Region" positionX="-110" positionY="189" width="128" height="88"/>
     </elements>
 </model>
