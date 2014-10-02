@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSURLSession *flickrDownloadSession;
 @property (strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
 @property (strong, nonatomic) NSManagedObjectContext *photoDatabaseContext;
+@property (strong, nonatomic) UIManagedDocument *document;
 @end
 
 // name of the Flickr fetching background download session
@@ -26,16 +27,53 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // I must create a UIManagedDocument, different than how it was done in lecture
-    //self.photoDatabaseContext = HOW??
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [self startFlickrFetch];
-    
-    // Override point for customization after application launch.
+    // first thing the app should do: create the UIManagedDocument, to create the managed object context used throughout
+    [self createManagedDocument];
+    [self startFlickrFetch]; // kick off a Flickr fetch upon launch
     return YES;
+
+}
+
+- (void)createManagedDocument {
     
+    // the UIManagedDocument approach to getting a managed object context (different than how it was done in lecture)
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentsDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    NSString *documentName = @"FlickrDatabase";
+    NSURL *url = [documentsDirectory URLByAppendingPathComponent:documentName];
+    self.document = [[UIManagedDocument alloc] initWithFileURL:url]; // this creates the UIManagedDocument in memory, but we need the code below to actually put the data on disk
+    
+    // if document exists, open it; if not, create it.
+    if ([fileManager fileExistsAtPath:[url path]]) {
+        [self.document openWithCompletionHandler:^(BOOL success) {
+            if (success) {
+                [self documentIsReady];
+                NSLog(@"opened document at %@", url);
+            }
+            if (!success) NSLog(@"couldn't open document at %@", url);
+        }];
+    }
+    else {
+        [self.document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            if (success) {
+                [self documentIsReady];
+                NSLog(@"created document at %@", url);
+            }
+            if (!success) NSLog(@"couldn't create document at %@", url);
+        }];
+    }
+
+}
+
+- (void)documentIsReady {
+    if (self.document.documentState == UIDocumentStateNormal) {
+        self.photoDatabaseContext = self.document.managedObjectContext;
+    }
+    else {
+        NSLog(@"document state is not normal.");
+    }
 }
 
 - (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext {
@@ -46,6 +84,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PhotoDatabaseAvailabilityNotification
                                                         object:self
                                                       userInfo:userInfo];
+    
 }
 
 
@@ -62,6 +101,7 @@
             for (NSURLSessionDownloadTask *task in downloadTasks) [task resume];
         }
     }];
+
 }
 
 // the NSURLSession we will use to fetch Flickr data in the background
@@ -70,7 +110,7 @@
     if (!_flickrDownloadSession) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:FLICKR_FETCH];
+            NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:FLICKR_FETCH];
             urlSessionConfig.allowsCellularAccess = NO; // for example
             _flickrDownloadSession = [NSURLSession sessionWithConfiguration:urlSessionConfig
                                                                    delegate:self
@@ -78,12 +118,16 @@
         });
     }
     return _flickrDownloadSession;
+    
 }
 
 - (NSArray *)flickrPhotosAtURL:(NSURL *)url {
     NSData *flickrJSONData = [NSData dataWithContentsOfURL:url];
     NSDictionary *flickrPropertyList = [NSJSONSerialization JSONObjectWithData:flickrJSONData options:0 error:NULL];
-    return [flickrPropertyList valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+    NSArray *photos = [flickrPropertyList valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+    //NSLog(@"results: %@", flickrPropertyList);
+    //NSLog(@"photos: %@", photos);
+    return photos;
 }
 
 #pragma mark - NSURLSessionDownloadDelegate

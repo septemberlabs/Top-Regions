@@ -20,8 +20,8 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:PhotoDatabaseAvailabilityNotification
                                                     object:nil
                                                      queue:nil
-                                                usingBlock:^(NSNotification *note) {
-                                                    self.managedObjectContext = note.userInfo[PhotoDatabaseAvailabilityContext];
+                                                usingBlock:^(NSNotification *notification) {
+                                                    self.managedObjectContext = notification.userInfo[PhotoDatabaseAvailabilityContext];
                                                 }];
 }
 
@@ -29,6 +29,8 @@
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     
     _managedObjectContext = managedObjectContext;
+    
+    // whenever the managed object context is set, automatically query the database for all the regions
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
     request.predicate = nil;

@@ -9,6 +9,7 @@
 #import "Photo+Flickr.h"
 #import "Region+Create.h"
 #import "FlickrFetcher.h"
+#import "ModelDebugger.h"
 
 @implementation Photo (Flickr)
 
@@ -35,7 +36,10 @@
         // create the photo, along with the accompanying region if it doesn't already exist
         
         photo = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:context];
+        //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
+        
         photo.id = flickr_id;
+        //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
 
         // get the region info about the photo
         NSString *place_id = [flickrPhotoDictionary objectForKey:@"place_id"];
@@ -44,11 +48,18 @@
         NSDictionary *placeInfo = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                   options:0
                                                                     error:&error];
-        NSDictionary *regionInfo = [placeInfo valueForKeyPath:@"place.region"];
-        NSString *regionName = [regionInfo objectForKey:@"_content"];
-
-        photo.region = [Region regionWithName:regionName inManagedObjectContext:context];
+        //NSDictionary *regionInfo = [placeInfo valueForKeyPath:@"place.region"];
+        //NSString *regionName = [regionInfo objectForKey:@"_content"];
+        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInfo];
         
+        photo.region = [Region regionWithName:regionName inManagedObjectContext:context];
+        int currentNumberOfPhotographers = [photo.region.numberOfPhotographers intValue];
+        photo.region.numberOfPhotographers = [NSNumber numberWithInt:(currentNumberOfPhotographers + 1)];
+
+        //[ModelDebugger viewRecordsOfEntity:photo.region.entity inContext:context];
+        
+        //[ModelDebugger viewContentsOfModel:[photo.entity managedObjectModel] inContext:context];
+
     }
     
     return photo;

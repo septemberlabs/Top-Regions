@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A129D4719C8D74000367A02 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A129D4519C8D74000367A02 /* Model.xcdatamodeld */; };
+		1A4BD5FA19DBA2AD00E121C0 /* ModelDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */; };
 		1A5C1DB819D4730A00A8FDCE /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C1DB719D4730A00A8FDCE /* Region+Create.m */; };
 		1A5C1DBE19D475F100A8FDCE /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C1DBD19D475F100A8FDCE /* Photo.m */; };
 		1A5C1DC119D475F200A8FDCE /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C1DC019D475F200A8FDCE /* Region.m */; };
@@ -44,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		1A129D4619C8D74000367A02 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		1A4BD5F819DBA2AD00E121C0 /* ModelDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelDebugger.h; sourceTree = "<group>"; };
+		1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelDebugger.m; sourceTree = "<group>"; };
 		1A5C1DB619D4730A00A8FDCE /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
 		1A5C1DB719D4730A00A8FDCE /* Region+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+Create.m"; sourceTree = "<group>"; };
 		1A5C1DBC19D475F100A8FDCE /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
@@ -120,11 +123,13 @@
 		1A5C1DC319D4780000A8FDCE /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				1A4BD5F819DBA2AD00E121C0 /* ModelDebugger.h */,
+				1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */,
 				1ADA78F619D7903F0006B8F1 /* PhotoDatabaseAvailability.h */,
-				1A5C1DB619D4730A00A8FDCE /* Region+Create.h */,
-				1A5C1DB719D4730A00A8FDCE /* Region+Create.m */,
 				1A5C1DCF19D4B2E400A8FDCE /* RegionsCDTVC.h */,
 				1A5C1DD019D4B2E400A8FDCE /* RegionsCDTVC.m */,
+				1A5C1DB619D4730A00A8FDCE /* Region+Create.h */,
+				1A5C1DB719D4730A00A8FDCE /* Region+Create.m */,
 				1A5C1DBF19D475F200A8FDCE /* Region.h */,
 				1A5C1DC019D475F200A8FDCE /* Region.m */,
 				1AB094DA19CF91D400849D0E /* Photo+Flickr.h */,
@@ -319,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A4BD5FA19DBA2AD00E121C0 /* ModelDebugger.m in Sources */,
 				1AB094DC19CF91D400849D0E /* Photo+Flickr.m in Sources */,
 				1A611D9819C3865C007EF304 /* ViewController.m in Sources */,
 				1A611D8F19C3865C007EF304 /* AppDelegate.m in Sources */,

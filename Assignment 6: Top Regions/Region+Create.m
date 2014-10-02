@@ -31,7 +31,8 @@
         // doesn't exist, create it
         region = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:context];
         region.name = name;
-        region.numberOfPhotographers = 0;
+        //region.numberOfPhotographers = 0;
+        //NSLog(@"here");
     }
     
     return region;
