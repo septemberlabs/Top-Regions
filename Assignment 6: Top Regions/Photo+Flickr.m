@@ -18,7 +18,7 @@
     Photo *photo = nil;
     
     // determine whether the photo already exists by searching with its flickr_id
-    NSString *flickr_id = flickrPhotoDictionary[FLICKR_PHOTO_ID];
+    NSString *flickr_id = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_ID];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
     request.predicate = [NSPredicate predicateWithFormat:@"id = %d", flickr_id];
     NSError *error;
@@ -39,10 +39,15 @@
         //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
         
         photo.id = flickr_id;
+        photo.title = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
+        photo.owner = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
+        NSString *flickrDateUploaded = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE];
+        photo.dateUploaded = [NSDate dateWithTimeIntervalSince1970:flickrDateUploaded.doubleValue];
         //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
 
         // get the region info about the photo
-        NSString *place_id = [flickrPhotoDictionary objectForKey:@"place_id"];
+        //NSLog(@"%@", flickrPhotoDictionary);
+        NSString *place_id = [flickrPhotoDictionary objectForKey:FLICKR_PHOTO_PLACE_ID];
         NSData *jsonData = [NSData dataWithContentsOfURL:[FlickrFetcher URLforInformationAboutPlace:place_id]];
         NSError *error = nil;
         NSDictionary *placeInfo = [NSJSONSerialization JSONObjectWithData:jsonData

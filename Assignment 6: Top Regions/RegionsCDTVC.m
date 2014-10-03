@@ -9,6 +9,7 @@
 #import "RegionsCDTVC.h"
 #import "Region.h"
 #import "PhotoDatabaseAvailability.h"
+#import "PhotosCDTVC.h"
 
 @interface RegionsCDTVC ()
 
@@ -57,5 +58,41 @@
     
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"Display Photo"]) {
+        
+        if ([segue.destinationViewController isKindOfClass:[PhotosCDTVC class]]) {
+            
+            PhotosCDTVC *tvc = (PhotosCDTVC *)segue.destinationViewController;
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            if (indexPath) {
+
+                // get the region name from the selected cell
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                NSString *regionName = cell.textLabel.text;
+
+                // fetch the corresponding Region managed object and send to the segued-to TVC
+                NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+                request.predicate = [NSPredicate predicateWithFormat:@"name = %@", regionName];
+                NSError *error;
+                NSArray *matches = [self.managedObjectContext executeFetchRequest:request error:&error];
+                
+                if (!matches || error || [matches count] != 1) {
+                    // either the fetch request returned nil or reported an error or there were either 0 or 1+ matches, which is itself a logic error. need error handling here therefore.
+                }
+                else {
+                    tvc.region = (Region *)[matches firstObject];
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
 
 @end
