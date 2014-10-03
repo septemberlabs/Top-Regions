@@ -3,9 +3,11 @@
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="dateUploaded" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="originallyStored" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="region" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="photos" inverseEntity="Region" syncable="YES"/>
     </entity>
@@ -15,7 +17,7 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="region" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-326" positionY="198" width="128" height="148"/>
+        <element name="Photo" positionX="-326" positionY="198" width="128" height="180"/>
         <element name="Region" positionX="-110" positionY="189" width="128" height="88"/>
     </elements>
 </model>

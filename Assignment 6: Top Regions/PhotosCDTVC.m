@@ -7,6 +7,7 @@
 //
 
 #import "PhotosCDTVC.h"
+#import "ImageViewController.h"
 
 @interface PhotosCDTVC ()
 
@@ -43,17 +44,17 @@
 
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    
-//    if ([segue.identifier isEqualToString:@"Flickr Photo"]) {
-//        if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
-//            ImageViewController *ivc = (ImageViewController *)segue.destinationViewController;
-//            NSDictionary *photo = self.photos[[[self.tableView indexPathForSelectedRow] row]];
-//            [self prepareImageViewController:ivc toDisplayPhoto:photo];
-//            NSLog(@"id: %@", [photo objectForKey:@"id"]);
-//        }
-//    }
-//    
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"Flickr Photo"]) {
+        if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
+            ImageViewController *ivc = (ImageViewController *)segue.destinationViewController;
+            Photo *photo = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+            ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+            [ivc setTitle:photo.title];
+        }
+    }
+    
+}
 
 @end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rGy-Mk-hMK">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -47,7 +46,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXr-MP-V01" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="349" y="237"/>
+            <point key="canvasLocation" x="-1087" y="25"/>
         </scene>
         <!--PhotosCDTVC-->
         <scene sceneID="aZh-g4-oWr">
@@ -58,7 +57,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Photo Cell" textLabel="4Ak-d9-PLe" detailTextLabel="8qJ-Fk-ch0" style="IBUITableViewCellStyleSubtitle" id="Fql-Wb-sri">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Photo Cell" textLabel="4Ak-d9-PLe" detailTextLabel="8qJ-Fk-ch0" style="IBUITableViewCellStyleSubtitle" id="Fql-Wb-sri">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fql-Wb-sri" id="0pc-3c-eav">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -77,6 +76,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="869-G5-gcm" kind="push" identifier="Flickr Photo" id="Cr0-Lp-YTy"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -88,7 +90,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNL-1n-YL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914" y="237"/>
+            <point key="canvasLocation" x="-522" y="25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qgr-23-sTW">
@@ -106,7 +108,47 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HwQ-Ih-uIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-183" y="237"/>
+            <point key="canvasLocation" x="-1619" y="25"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="sX2-Sa-1h2">
+            <objects>
+                <viewController id="869-G5-gcm" customClass="ImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i5Z-Gf-EXc"/>
+                        <viewControllerLayoutGuide type="bottom" id="RDn-mm-6W4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YXo-TE-Of0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Aha-yh-xsE">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVp-lr-pkv">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gVp-lr-pkv" firstAttribute="top" secondItem="i5Z-Gf-EXc" secondAttribute="bottom" id="Ac1-vm-MGQ"/>
+                            <constraint firstAttribute="centerX" secondItem="Aha-yh-xsE" secondAttribute="centerX" id="I4a-x9-GeF"/>
+                            <constraint firstAttribute="centerY" secondItem="Aha-yh-xsE" secondAttribute="centerY" id="LkY-th-Sx3"/>
+                            <constraint firstAttribute="trailing" secondItem="gVp-lr-pkv" secondAttribute="trailing" id="SAk-W8-J35"/>
+                            <constraint firstItem="gVp-lr-pkv" firstAttribute="leading" secondItem="YXo-TE-Of0" secondAttribute="leading" id="dMz-7o-OdJ"/>
+                            <constraint firstAttribute="bottom" secondItem="gVp-lr-pkv" secondAttribute="bottom" id="sWj-5H-CTy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="QQE-nX-EGU"/>
+                    <connections>
+                        <outlet property="scrollView" destination="gVp-lr-pkv" id="eSv-PE-lFe"/>
+                        <outlet property="spinner" destination="Aha-yh-xsE" id="7WY-G1-vct"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YnD-3b-l58" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5" y="25"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

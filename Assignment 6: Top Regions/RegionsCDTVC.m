@@ -71,12 +71,11 @@
             if (indexPath) {
 
                 // get the region name from the selected cell
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                NSString *regionName = cell.textLabel.text;
+                Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
                 // fetch the corresponding Region managed object and send to the segued-to TVC
                 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-                request.predicate = [NSPredicate predicateWithFormat:@"name = %@", regionName];
+                request.predicate = [NSPredicate predicateWithFormat:@"name = %@", region.name];
                 NSError *error;
                 NSArray *matches = [self.managedObjectContext executeFetchRequest:request error:&error];
                 

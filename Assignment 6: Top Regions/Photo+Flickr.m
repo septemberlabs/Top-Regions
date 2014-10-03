@@ -43,6 +43,8 @@
         photo.owner = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
         NSString *flickrDateUploaded = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE];
         photo.dateUploaded = [NSDate dateWithTimeIntervalSince1970:flickrDateUploaded.doubleValue];
+        photo.thumbnailURL = [[FlickrFetcher URLforPhoto:flickrPhotoDictionary format:FlickrPhotoFormatSquare] absoluteString];
+        photo.imageURL = [[FlickrFetcher URLforPhoto:flickrPhotoDictionary format:FlickrPhotoFormatLarge] absoluteString];
         //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
 
         // get the region info about the photo
