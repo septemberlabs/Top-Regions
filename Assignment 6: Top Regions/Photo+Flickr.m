@@ -10,6 +10,7 @@
 #import "Region+Create.h"
 #import "FlickrFetcher.h"
 #import "ModelDebugger.h"
+#import "Photographer.h"
 
 @implementation Photo (Flickr)
 
@@ -20,7 +21,7 @@
     // determine whether the photo already exists by searching with its flickr_id
     NSString *flickr_id = [flickrPhotoDictionary valueForKeyPath:FLICKR_PHOTO_ID];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    request.predicate = [NSPredicate predicateWithFormat:@"id = %d", flickr_id];
+    request.predicate = [NSPredicate predicateWithFormat:@"id = %@", flickr_id];
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
@@ -47,6 +48,9 @@
         photo.imageURL = [[FlickrFetcher URLforPhoto:flickrPhotoDictionary format:FlickrPhotoFormatLarge] absoluteString];
         //[ModelDebugger viewRecordsOfEntity:photo.entity inContext:context];
 
+        Photographer *photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer" inManagedObjectContext:context];
+        photographer.username = [flickrPhotoDictionary valueForKey:FLICKR_PHOTO_OWNER];
+        
         // get the region info about the photo
         //NSLog(@"%@", flickrPhotoDictionary);
         NSString *place_id = [flickrPhotoDictionary objectForKey:FLICKR_PHOTO_PLACE_ID];
@@ -57,11 +61,12 @@
                                                                     error:&error];
         //NSDictionary *regionInfo = [placeInfo valueForKeyPath:@"place.region"];
         //NSString *regionName = [regionInfo objectForKey:@"_content"];
-        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInfo];
         
-        photo.region = [Region regionWithName:regionName inManagedObjectContext:context];
-        int currentNumberOfPhotographers = [photo.region.numberOfPhotographers intValue];
-        photo.region.numberOfPhotographers = [NSNumber numberWithInt:(currentNumberOfPhotographers + 1)];
+        //NSLog(@"%@", placeInfo);
+        //NSLog(@"%@", regionInfo);
+        
+        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInfo];
+        photo.region = [Region regionWithName:regionName withPhotographer:photographer inManagedObjectContext:context];
 
         //[ModelDebugger viewRecordsOfEntity:photo.region.entity inContext:context];
         

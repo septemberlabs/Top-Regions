@@ -31,7 +31,6 @@
 
     // first thing the app should do: create the UIManagedDocument, to create the managed object context used throughout
     [self createManagedDocument];
-    [self startFlickrFetch]; // kick off a Flickr fetch upon launch
     return YES;
 
 }
@@ -70,6 +69,7 @@
 - (void)documentIsReady {
     if (self.document.documentState == UIDocumentStateNormal) {
         self.photoDatabaseContext = self.document.managedObjectContext;
+        [self startFlickrFetch]; // kick off a Flickr fetch upon launch, but only once the UIManagedDocument open/creates successfully and can thereby provide the managed object context
     }
     else {
         NSLog(@"document state is not normal.");

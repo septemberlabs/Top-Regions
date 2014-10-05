@@ -10,7 +10,7 @@
 
 @implementation Region (Create)
 
-+ (Region *)regionWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context {
++ (Region *)regionWithName:(NSString *)name withPhotographer:(Photographer *)photographer inManagedObjectContext:(NSManagedObjectContext *)context {
     
     Region *region = nil;
     
@@ -31,8 +31,13 @@
         // doesn't exist, create it
         region = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:context];
         region.name = name;
-        //region.numberOfPhotographers = 0;
-        //NSLog(@"here");
+    }
+
+    // if the photographer doesn't yet exist in the region, add it and increment the counter
+    if (![region.photographers containsObject:photographer]) {
+        [region addPhotographersObject:photographer];
+        int currentNumberOfPhotographers = [region.numberOfPhotographers intValue];
+        region.numberOfPhotographers = [NSNumber numberWithInt:(currentNumberOfPhotographers + 1)];
     }
     
     return region;

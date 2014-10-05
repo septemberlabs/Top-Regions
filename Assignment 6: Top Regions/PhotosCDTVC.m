@@ -38,7 +38,28 @@
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.textLabel.text = photo.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
+    cell.detailTextLabel.text = photo.id;
+    
+    // if the thumbnail data exists display it immediately. if not, add a block off the main queue to go grab and store it.
+    if (photo.thumbnail != nil) {
+        cell.imageView.image = [UIImage imageWithData:photo.thumbnail];
+    }
+    else {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:photo.thumbnailURL]];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        //NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+                    if (!error) {
+                        //NSLog(@"request.URL: %@", [request.URL absoluteString]);
+                        //NSLog(@"photo.thumbnailURL: %@", photo.thumbnailURL);
+                        photo.thumbnail = [NSData dataWithContentsOfURL:localfile];
+                    }
+                }];
+        [task resume];
+    }
 
     return cell;
 
