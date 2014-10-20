@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1A129D4719C8D74000367A02 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A129D4519C8D74000367A02 /* Model.xcdatamodeld */; };
 		1A2CF59F19DEC142005EF991 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2CF59E19DEC142005EF991 /* ImageViewController.m */; };
-		1A2CF5A219DEC507005EF991 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2CF5A119DEC507005EF991 /* Photo.m */; };
 		1A4BD5FA19DBA2AD00E121C0 /* ModelDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */; };
 		1A5C1DB819D4730A00A8FDCE /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C1DB719D4730A00A8FDCE /* Region+Create.m */; };
 		1A5C1DCD19D47FC500A8FDCE /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C1DCC19D47FC500A8FDCE /* FlickrFetcher.m */; };
@@ -30,8 +29,9 @@
 		1A611DAB19C3865C007EF304 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A611DA919C3865C007EF304 /* InfoPlist.strings */; };
 		1A611DAD19C3865C007EF304 /* Assignment_6__Top_RegionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A611DAC19C3865C007EF304 /* Assignment_6__Top_RegionsTests.m */; };
 		1A759EED19C7CF7400378B5A /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A759EEC19C7CF7400378B5A /* CoreDataTableViewController.m */; };
+		1A8710EA19E866F60002BCE8 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8710E919E866F60002BCE8 /* Photographer.m */; };
+		1A8710ED19E86AF10002BCE8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8710EC19E86AF10002BCE8 /* Photo.m */; };
 		1A9901AA19DDF33100F7FFDC /* PhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9901A919DDF33100F7FFDC /* PhotosCDTVC.m */; };
-		1AADB4E019E05409008362F7 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADB4DF19E05409008362F7 /* Photographer.m */; };
 		1AADB4E319E0577B008362F7 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADB4E219E0577B008362F7 /* Region.m */; };
 		1AB094DC19CF91D400849D0E /* Photo+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB094DB19CF91D400849D0E /* Photo+Flickr.m */; };
 /* End PBXBuildFile section */
@@ -50,8 +50,6 @@
 		1A129D4619C8D74000367A02 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1A2CF59D19DEC142005EF991 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		1A2CF59E19DEC142005EF991 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
-		1A2CF5A019DEC507005EF991 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		1A2CF5A119DEC507005EF991 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		1A4BD5F819DBA2AD00E121C0 /* ModelDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelDebugger.h; sourceTree = "<group>"; };
 		1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelDebugger.m; sourceTree = "<group>"; };
 		1A5C1DB619D4730A00A8FDCE /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
@@ -83,10 +81,12 @@
 		1A611DAC19C3865C007EF304 /* Assignment_6__Top_RegionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Assignment_6__Top_RegionsTests.m; sourceTree = "<group>"; };
 		1A759EEB19C7CF7400378B5A /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		1A759EEC19C7CF7400378B5A /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		1A8710E819E866F60002BCE8 /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
+		1A8710E919E866F60002BCE8 /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
+		1A8710EB19E86AF10002BCE8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		1A8710EC19E86AF10002BCE8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		1A9901A819DDF33100F7FFDC /* PhotosCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosCDTVC.h; sourceTree = "<group>"; };
 		1A9901A919DDF33100F7FFDC /* PhotosCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosCDTVC.m; sourceTree = "<group>"; };
-		1AADB4DE19E05409008362F7 /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
-		1AADB4DF19E05409008362F7 /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
 		1AADB4E119E0577B008362F7 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		1AADB4E219E0577B008362F7 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		1AB094DA19CF91D400849D0E /* Photo+Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photo+Flickr.h"; sourceTree = "<group>"; };
@@ -132,10 +132,12 @@
 		1A5C1DC319D4780000A8FDCE /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				1A8710EB19E86AF10002BCE8 /* Photo.h */,
+				1A8710EC19E86AF10002BCE8 /* Photo.m */,
+				1A8710E819E866F60002BCE8 /* Photographer.h */,
+				1A8710E919E866F60002BCE8 /* Photographer.m */,
 				1AADB4E119E0577B008362F7 /* Region.h */,
 				1AADB4E219E0577B008362F7 /* Region.m */,
-				1AADB4DE19E05409008362F7 /* Photographer.h */,
-				1AADB4DF19E05409008362F7 /* Photographer.m */,
 				1A4BD5F819DBA2AD00E121C0 /* ModelDebugger.h */,
 				1A4BD5F919DBA2AD00E121C0 /* ModelDebugger.m */,
 				1ADA78F619D7903F0006B8F1 /* PhotoDatabaseAvailability.h */,
@@ -147,8 +149,6 @@
 				1A9901A919DDF33100F7FFDC /* PhotosCDTVC.m */,
 				1AB094DA19CF91D400849D0E /* Photo+Flickr.h */,
 				1AB094DB19CF91D400849D0E /* Photo+Flickr.m */,
-				1A2CF5A019DEC507005EF991 /* Photo.h */,
-				1A2CF5A119DEC507005EF991 /* Photo.m */,
 				1A611D8D19C3865C007EF304 /* AppDelegate.h */,
 				1A611D8E19C3865C007EF304 /* AppDelegate.m */,
 				1A2CF59D19DEC142005EF991 /* ImageViewController.h */,
@@ -296,6 +296,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "September Labs";
 				TargetAttributes = {
+					1A611D7A19C3865B007EF304 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					1A611D9E19C3865C007EF304 = {
 						TestTargetID = 1A611D7A19C3865B007EF304;
 					};
@@ -347,11 +354,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A2CF5A219DEC507005EF991 /* Photo.m in Sources */,
 				1A9901AA19DDF33100F7FFDC /* PhotosCDTVC.m in Sources */,
 				1A4BD5FA19DBA2AD00E121C0 /* ModelDebugger.m in Sources */,
 				1AB094DC19CF91D400849D0E /* Photo+Flickr.m in Sources */,
-				1AADB4E019E05409008362F7 /* Photographer.m in Sources */,
+				1A8710ED19E86AF10002BCE8 /* Photo.m in Sources */,
+				1A8710EA19E866F60002BCE8 /* Photographer.m in Sources */,
 				1A611D9819C3865C007EF304 /* ViewController.m in Sources */,
 				1A611D8F19C3865C007EF304 /* AppDelegate.m in Sources */,
 				1A759EED19C7CF7400378B5A /* CoreDataTableViewController.m in Sources */,

@@ -12,29 +12,73 @@
 #import "PhotosCDTVC.h"
 
 @interface RegionsCDTVC ()
-
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
+
 
 @implementation RegionsCDTVC
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [[NSNotificationCenter defaultCenter] addObserverForName:PhotoDatabaseAvailabilityNotification
-                                                    object:nil
-                                                     queue:nil
-                                                usingBlock:^(NSNotification *notification) {
-                                                    self.managedObjectContext = notification.userInfo[PhotoDatabaseAvailabilityContext];
-                                                }];
+                object:nil
+                 queue:nil
+            usingBlock:^(NSNotification *notification) {
+                self.managedObjectContext = notification.userInfo[PhotoDatabaseAvailabilityContext];
+            }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // when on screen, add an observer to receive notifications from the managed object context that it saved, and react by calling performFetch, which forces adherence to the fetchLimit so that only that amount of rows are displayed in the table.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contextChanged:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:self.managedObjectContext];
+    
+    /*
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"downloadsComplete" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        if (self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
+    }];
+     */
+     
+}
+
+// remove the observer if we're not on screen.
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:self.managedObjectContext];
+    [super viewWillDisappear:animated];
+}
+
+// performFetch forces adherence to the fetchLimit so that only that amount of rows are displayed in the table.
+- (void)contextChanged:(NSNotification *)notification
+{
+    [self performFetch];
+}
+
+// because we want the action taken upon a user refresh to be a method of the AppDelegate, we need to use a notification. to respect MVC, we don't want the table view controller to know about the AppDelegate.
+- (IBAction)userRefresh {
+    NSLog(@"called userRefresh");
+    [self.refreshControl beginRefreshing];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userRefresh" object:nil];
 }
 
 
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
     _managedObjectContext = managedObjectContext;
     
     // whenever the managed object context is set, automatically query the database for all the regions
-    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
     request.predicate = nil;
+    request.fetchLimit = 5;
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numberOfPhotographers"
                                                               ascending:FALSE]];
     
@@ -42,26 +86,24 @@
                                                                         managedObjectContext:managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+    NSError *error;
+    [self.fetchedResultsController performFetch:&error];
     
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Region Cell"];
-
     Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
     cell.textLabel.text = region.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ photographers", region.numberOfPhotographers];
-    
     return cell;
-    
 }
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"Display Photo"]) {
         
         if ([segue.destinationViewController isKindOfClass:[PhotosCDTVC class]]) {
@@ -81,17 +123,14 @@
                 
                 if (!matches || error || [matches count] != 1) {
                     // either the fetch request returned nil or reported an error or there were either 0 or 1+ matches, which is itself a logic error. need error handling here therefore.
+                    NSLog(@"ERROR");
                 }
                 else {
                     tvc.region = (Region *)[matches firstObject];
                 }
-                
             }
-            
         }
-        
     }
-    
 }
 
 @end

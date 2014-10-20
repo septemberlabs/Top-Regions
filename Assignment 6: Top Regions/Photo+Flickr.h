@@ -10,9 +10,10 @@
 
 @interface Photo (Flickr)
 
-+ (Photo *)photoWithFlickrInfo:(NSDictionary *)flickrPhotoDictionary inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Photo *)photoWithFlickrInfo:(NSDictionary *)flickrPhotoDictionary inManagedObjectContext:(NSManagedObjectContext *)context withSession:(NSURLSession *)session;
 
 + (void)loadPhotosFromFlickrArray:(NSArray *)photos // of Flickr NSDictionary
-         intoManagedObjectContext:(NSManagedObjectContext *)context;
+         intoManagedObjectContext:(NSManagedObjectContext *)context
+                      withSession:session;
 
 @end

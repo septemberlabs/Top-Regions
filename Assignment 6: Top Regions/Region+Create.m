@@ -10,8 +10,8 @@
 
 @implementation Region (Create)
 
-+ (Region *)regionWithName:(NSString *)name withPhotographer:(Photographer *)photographer inManagedObjectContext:(NSManagedObjectContext *)context {
-    
++ (Region *)regionWithName:(NSString *)name withPhotographer:(Photographer *)photographer inManagedObjectContext:(NSManagedObjectContext *)context
+{
     Region *region = nil;
     
     // determine whether the region already exists by searching with its name
@@ -22,6 +22,7 @@
     
     if (!matches || error || [matches count] > 1) {
         // either the fetch request returned nil or reported an error or there were multiple matches, which is itself a logic error
+        NSLog(@"ERROR");
     }
     else if ([matches count]) {
         // exists
@@ -41,7 +42,6 @@
     }
     
     return region;
-    
 }
 
 @end

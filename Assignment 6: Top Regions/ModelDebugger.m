@@ -44,7 +44,7 @@
                         debugOutput = [debugOutput stringByAppendingFormat:@" %@: %@ |", [entityProperty name], [result valueForKey:[entityProperty name]]];
                     }
                     else {
-                        debugOutput = [debugOutput stringByAppendingFormat:@" %@: is set |", [entityProperty name]];
+                        debugOutput = [debugOutput stringByAppendingFormat:@" %@: is set: %@ |", [entityProperty name], [result valueForKey:[entityProperty name]]];
                     }
                 }
                 else {
@@ -59,6 +59,11 @@
         }
     }
     
+}
+
++ (void)viewProperty:(NSPropertyDescription *)entityProperty OfEntity:(NSEntityDescription *)entity inContext:(NSManagedObjectContext *)context
+{
+
 }
 
 @end

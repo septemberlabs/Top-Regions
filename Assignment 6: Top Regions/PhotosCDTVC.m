@@ -15,10 +15,11 @@
 
 @implementation PhotosCDTVC
 
-- (void)setRegion:(Region *)region {
-    
+- (void)setRegion:(Region *)region
+{
     _region = region;
     _managedObjectContext = region.managedObjectContext;
+    self.title = region.name;
 
     // whenever the region is set, which only happens when a user selects it in RegionsCDTVC, automatically query the database for all the photos
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
@@ -31,15 +32,15 @@
                                                                                    cacheName:nil];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Photo Cell"];
     
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.textLabel.text = photo.title;
-    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
-    cell.detailTextLabel.text = photo.id;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
+    //cell.detailTextLabel.text = photo.id;
     
     // if the thumbnail data exists display it immediately. if not, add a block off the main queue to go grab and store it.
     if (photo.thumbnail != nil) {
@@ -48,7 +49,6 @@
     else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:photo.thumbnailURL]];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        //NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
         NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
                 completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
@@ -65,8 +65,8 @@
 
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"Flickr Photo"]) {
         if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
             ImageViewController *ivc = (ImageViewController *)segue.destinationViewController;
@@ -75,7 +75,6 @@
             [ivc setTitle:photo.title];
         }
     }
-    
 }
 
 @end
