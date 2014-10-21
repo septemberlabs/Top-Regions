@@ -24,7 +24,7 @@
 #define FLICKR_FETCH @"Flickr just uploaded fetch"
 
 // how often (in seconds) we fetch new photos if we are in the foreground
-#define FOREGROUND_FLICKR_FETCH_INTERVAL (10)
+#define FOREGROUND_FLICKR_FETCH_INTERVAL (10*1000)
 
 // how long we'll wait for a Flickr fetch to return when we're in the background
 #define BACKGROUND_FLICKR_FETCH_TIMEOUT (10)
@@ -228,6 +228,7 @@
                 [task resume];
             }
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshComplete" object:nil];
     }];
 
 }

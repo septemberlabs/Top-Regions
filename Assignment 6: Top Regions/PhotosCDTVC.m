@@ -37,10 +37,12 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Photo Cell"];
     
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.textLabel.text = photo.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
-    //cell.detailTextLabel.text = photo.id;
+    		
+    cell.textLabel.text = photo.id;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Photographer: %@", photo.owner];
+    // Change what's displayed for each photo to title and date/time taken --
+    //cell.textLabel.text = photo.title;
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Taken %@", [NSDateFormatter localizedStringFromDate:photo.dateUploaded dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterLongStyle]];
     
     // if the thumbnail data exists display it immediately. if not, add a block off the main queue to go grab and store it.
     if (photo.thumbnail != nil) {
@@ -65,14 +67,42 @@
 
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id detail = self.splitViewController.viewControllers[1];
+    if ([detail isKindOfClass:[UINavigationController class]]) {
+        detail = [((UINavigationController *)detail).viewControllers firstObject];
+
+        // -9:29 in lecture 11. Table View and iPad
+        
+        if ([detail isKindOfClass:[ImageViewController class]]) {
+            ImageViewController *ivc = (ImageViewController *)detail;
+            [self prepareImageViewController:ivc toDisplayPhoto:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        }
+        
+    }
+}
+
+#pragma mark - Navigation
+
+- (void)prepareImageViewController:(ImageViewController *)ivc toDisplayPhoto:(Photo *)photo
+{
+    ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+    [ivc setTitle:photo.title];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Flickr Photo"]) {
         if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
             ImageViewController *ivc = (ImageViewController *)segue.destinationViewController;
             Photo *photo = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
-            ivc.imageURL = [NSURL URLWithString:photo.imageURL];
-            [ivc setTitle:photo.title];
+            [self prepareImageViewController:ivc toDisplayPhoto:photo];
+            // moved these to their own method, above
+            //ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+            //[ivc setTitle:photo.title];
         }
     }
 }

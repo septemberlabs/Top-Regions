@@ -26,6 +26,14 @@
             usingBlock:^(NSNotification *notification) {
                 self.managedObjectContext = notification.userInfo[PhotoDatabaseAvailabilityContext];
             }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshComplete" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSLog(@"refresh complete");
+        if (self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
+    }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -35,24 +43,16 @@
     // when on screen, add an observer to receive notifications from the managed object context that it saved, and react by calling performFetch, which forces adherence to the fetchLimit so that only that amount of rows are displayed in the table.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(contextChanged:)
-                                                 name:NSManagedObjectContextDidSaveNotification
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:self.managedObjectContext];
     
-    /*
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"downloadsComplete" object:nil queue:nil usingBlock:^(NSNotification *note) {
-        if (self.refreshControl.refreshing) {
-            [self.refreshControl endRefreshing];
-        }
-    }];
-     */
-     
 }
 
 // remove the observer if we're not on screen.
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
+                                                    name:NSManagedObjectContextObjectsDidChangeNotification
                                                   object:self.managedObjectContext];
     [super viewWillDisappear:animated];
 }
@@ -78,9 +78,10 @@
     // whenever the managed object context is set, automatically query the database for all the regions
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
     request.predicate = nil;
-    request.fetchLimit = 5;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numberOfPhotographers"
-                                                              ascending:FALSE]];
+    request.fetchLimit = 10;
+    NSSortDescriptor *numberOfPhotographers = [NSSortDescriptor sortDescriptorWithKey:@"numberOfPhotographers" ascending:FALSE];
+    NSSortDescriptor *placeName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE];
+    request.sortDescriptors = @[numberOfPhotographers, placeName];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:managedObjectContext

@@ -90,10 +90,7 @@
                     //NSLog(@"%@", placeInfo);
                     //NSLog(@"%@", regionInfo);
                     [session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-                        NSLog(@"current tasks: %d", [downloadTasks count]);
-                        if (![downloadTasks count]) {
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadsComplete" object:nil];
-                        }
+                        NSLog(@"current tasks: %lu", (unsigned long)[downloadTasks count]);
                     }];
                 }
             }];
