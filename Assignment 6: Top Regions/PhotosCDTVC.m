@@ -74,14 +74,9 @@
     id detail = self.splitViewController.viewControllers[1];
     if ([detail isKindOfClass:[UINavigationController class]]) {
         detail = [((UINavigationController *)detail).viewControllers firstObject];
-
-        // -9:29 in lecture 11. Table View and iPad
-        
         if ([detail isKindOfClass:[ImageViewController class]]) {
-            ImageViewController *ivc = (ImageViewController *)detail;
-            [self prepareImageViewController:ivc toDisplayPhoto:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+            [self prepareImageViewController:detail toDisplayPhoto:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         }
-        
     }
 }
 

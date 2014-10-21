@@ -111,18 +111,19 @@
     
 }
 
+/************** left back button not showing when launched in portrait, and when it does show, it show's "region", not "photo" ****************/
+
 - (void)splitViewController:(UISplitViewController *)svc
      willHideViewController:(UIViewController *)aViewController
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc {
-    
+       forPopoverController:(UIPopoverController *)pc
+{
     // we set the back button to read the master VC's title that we specified in Xcode (which is actually the app's name).
     UIViewController *master = svc.viewControllers[0];
-    barButtonItem.title = master.title;
+    barButtonItem.title = master.title; // this could also just be aViewController.title, since aViewController is the master
     
     // this only works in the detail VC and only if it was in a UINavigationController
     self.navigationItem.leftBarButtonItem = barButtonItem;
-    
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
