@@ -118,11 +118,7 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    // we set the back button to read the master VC's title that we specified in Xcode (which is actually the app's name).
-    UIViewController *master = svc.viewControllers[0];
-    barButtonItem.title = master.title; // this could also just be aViewController.title, since aViewController is the master
-    
-    // this only works in the detail VC and only if it was in a UINavigationController
+    barButtonItem.title = aViewController.title;
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 

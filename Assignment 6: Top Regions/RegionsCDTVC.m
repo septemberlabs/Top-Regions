@@ -20,6 +20,8 @@
 
 - (void)awakeFromNib
 {
+    self.title = @"Popular Regions";
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:PhotoDatabaseAvailabilityNotification
                 object:nil
                  queue:nil

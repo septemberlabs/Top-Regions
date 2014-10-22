@@ -20,7 +20,7 @@
         <!--RegionsCDTVC-->
         <scene sceneID="KcJ-ez-81V">
             <objects>
-                <tableViewController id="oM4-sN-0FY" customClass="RegionsCDTVC" sceneMemberID="viewController">
+                <tableViewController title="RegionsCDTVC" id="oM4-sN-0FY" customClass="RegionsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zIK-rb-of5">
                         <rect key="frame" x="0.0" y="0.0" width="308" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,10 +67,10 @@
             </objects>
             <point key="canvasLocation" x="893" y="-851"/>
         </scene>
-        <!--blah blah-->
+        <!--PhotosCDTVC-->
         <scene sceneID="1TW-Lm-Mqw">
             <objects>
-                <tableViewController title="blah blah" id="eb1-jh-tn5" customClass="PhotosCDTVC" sceneMemberID="viewController">
+                <tableViewController title="PhotosCDTVC" id="eb1-jh-tn5" customClass="PhotosCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ty1-0A-xNO">
                         <rect key="frame" x="0.0" y="0.0" width="308" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="1318" y="-851"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--What about now??-->
         <scene sceneID="qsl-ce-rCo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="74t-T5-Zld" sceneMemberID="viewController">
+                <navigationController title="What about now??" automaticallyAdjustsScrollViewInsets="NO" id="74t-T5-Zld" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qhf-0c-Kw2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
